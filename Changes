@@ -1,0 +1,15 @@
+Revision history for Perl extension Authen::Simple
+
+0.4 2006-01-13 00:00
+    - Documented supported passoword formats
+    - Added reference to Authen::Simple::DBI and Authen::Simple::CDBI
+
+0.3 2006-01-12 00:00
+    - Added Authen::Simple::Password
+    - Added reference to Authen::Simple::NIS
+
+0.2 2006-01-04 00:00
+    - Added tests
+
+0.1 2006-01-03 00:00
+    - First release
