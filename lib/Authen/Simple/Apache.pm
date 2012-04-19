@@ -17,7 +17,7 @@ BEGIN {
         eval "require $class";
     }
 
-    my @import = qw( OK HTTP_UNAUTHORIZED SERVER_ERROR );
+    my @import = qw( OK HTTP_UNAUTHORIZED SERVER_ERROR AUTH_REQUIRED );
 
     if ( $mod_perl::VERSION >= 1.999022 ) { # mod_perl 2.0.0 RC5
         require Apache2::RequestRec;
@@ -115,7 +115,12 @@ sub handle {
         return SERVER_ERROR;
     }
 
-    return ( $success ) ? OK : HTTP_UNAUTHORIZED;
+    if (!$success) {
+        $r->note_basic_auth_failure;
+        return AUTH_REQUIRED;
+    }
+
+    return OK;
 }
 
 1;
