@@ -5,7 +5,7 @@ use warnings;
 
 use Params::Validate qw[];
 
-our $VERSION = 0.4;
+our $VERSION = '0.5';
 
 sub new {
     my $class = shift;
