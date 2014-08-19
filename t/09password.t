@@ -9,6 +9,9 @@ use Digest::SHA              qw[];
 
 use Test::More tests => 16;
 
+use Config;
+use constant HAVE_CRYPT => $Config{d_crypt};
+
 my @tests = (
     [ 'plain',     'plain',                                  'plain'        ],
     [ 'crypt',     'lk9Mh5KHGjAaM',                          'crypt'        ],
@@ -29,5 +32,9 @@ my @tests = (
 );
 
 foreach my $t ( @tests ) {
-    ok( Authen::Simple::Password->check( $t->[0], $t->[1] ), $t->[2] );
+    SKIP: {
+        skip "crypt not available on this system", 1
+            if !HAVE_CRYPT && $t->[0] eq 'crypt';
+        ok( Authen::Simple::Password->check( $t->[0], $t->[1] ), $t->[2] );
+    }
 }
