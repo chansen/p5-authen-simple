@@ -8,6 +8,9 @@ use Digest::MD5      qw[];
 use Digest::SHA      qw[];
 use MIME::Base64     qw[];
 
+use Config;
+use constant HAVE_CRYPT => $Config{d_crypt};
+
 sub check {
     my ( $class, $password, $encrypted ) = @_;
 
@@ -22,7 +25,7 @@ sub check {
     # $3$ NT-Hash    ?   ?
 
     # Crypt
-    return 1 if crypt( $password, $encrypted ) eq $encrypted;
+    return 1 if HAVE_CRYPT && crypt( $password, $encrypted ) eq $encrypted;
 
     # Crypt Modular Format
     if ( $encrypted =~ /^\$(\w+)\$/ ) {
