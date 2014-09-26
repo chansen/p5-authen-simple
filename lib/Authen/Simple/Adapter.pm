@@ -251,14 +251,14 @@ aborted by callback or a cache hit.
 
 =item * check ( $username, $password )
 
-Must be implemented in sublcass, should return true on success and false on failure.
+Must be implemented in subclass, should return true on success and false on failure.
 
 =item * check_password( $password, $encrypted )
 
 =item * options ( \%options )
 
 Must be set in subclass, should be a valid L<Params::Validate> specification. 
-Accessors for options will be created unless defined in sublcass.
+Accessors for options will be created unless defined in subclass.
 
     __PACKAGE__->options({
         host => {
