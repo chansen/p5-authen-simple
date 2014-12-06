@@ -24,9 +24,6 @@ sub check {
     # $2$ Blowfish  34  16
     # $3$ NT-Hash    ?   ?
 
-    # Crypt
-    return 1 if HAVE_CRYPT && crypt( $password, $encrypted ) eq $encrypted;
-
     # Crypt Modular Format
     if ( $encrypted =~ /^\$(\w+)\$/ ) {
         return 1 if $class->_check_modular( $password, $encrypted, lc($1) );
@@ -75,6 +72,9 @@ sub check {
     if ( length($encrypted) == 64 ) {
         return 1 if Digest::SHA::sha256_hex($password) eq $encrypted;
     }
+
+    # Crypt
+    return 1 if HAVE_CRYPT && crypt( $password, $encrypted ) eq $encrypted;
 
     return 0;
 }
